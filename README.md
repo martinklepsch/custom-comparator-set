@@ -54,6 +54,12 @@ If you don't want the `nil` guard behavior you can implement your own constructo
 
 Simple!
 
+#### Differences to regular sets
+
+Lookups via `(get ccset k)` look for entries where the comparator
+returned `k`.  This way you can still effectively look up entries by
+their unique property without traversing the full set.
+
 ### Building and Testing
 
 Build and install into local `~/.m2`

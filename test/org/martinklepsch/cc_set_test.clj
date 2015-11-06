@@ -38,3 +38,13 @@
   (t/testing "disj value in ccset"
     (t/is (= (ccset/set-by :k)
              (disj (ccset/set-by :k {:k "a"}) {:k "a"})))))
+
+(deftest getting-values
+  (t/testing "get key not in ccset"
+    (t/is (= nil (get (ccset/set-by :k {:k "a"}) "b"))))
+  (t/testing "do not get value by value as in regular sets"
+    (t/is (= nil (get (ccset/set-by :k {:k "a"}) {:k "b"}))))
+  (t/testing "get value in ccset"
+    (t/is (= {:k "b"}
+             (-> (ccset/set-by :k {:k "a"} {:k "b"})
+                 (get "b"))))))
