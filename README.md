@@ -28,6 +28,7 @@ users to manage data in a set-like datastructre while using a custom
 function as uniqueness comparator.
 
 ```clojure
+(import [org.martinklepsch.cc_set CustomComparatorSet])
 (def x (CustomComparatorSet. {} :id))
 (conj x {:id 1} {:id 2})
 ;; => #CustomComparatorSet{{:id 1} {:id 2}}
@@ -40,6 +41,7 @@ A constructor `set-by` is provided which additionally wraps the passed
 comparator in a nil check, throwing if `nil` is returned.
 
 ```clojure
+(require '[org.martinklepsch.cc-set :refer [set-by]])
 (set-by :id {:id "a"} {:id "x"} {:id "b"})
 ```
 
