@@ -14,7 +14,8 @@
     (reduce conj (CustomComparatorSet. nil {} cmp) keys)))
 
 #?(:clj (defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
-          (.write w (str "#CustomComparatorSet{" (string/join " " (map pr-str (seq v))) "}"))))
+          (let [items (string/join " " (map pr-str (seq v)))]
+            (.write w (str "#CustomComparatorSet{" items "}")))))
 
 (comment
   (def x (CustomComparatorSet. {} :id))
