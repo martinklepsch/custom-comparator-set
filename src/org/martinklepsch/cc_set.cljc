@@ -4,6 +4,11 @@
   #?(:clj (:import [org.martinklepsch.cc_set.impl CustomComparatorSet]))
   #?(:cljs (:require [org.martinklepsch.cc-set.impl :refer [CustomComparatorSet]])))
 
+(defn custom-comparator-set [comparator & keys]
+  (reduce conj #?(:clj (CustomComparatorSet. {} comparator)
+                  :cljs (CustomComparatorSet. nil {} comparator))
+          keys))
+
 (defn set-by
   "High level constructor for custom comparator sets.
    Throws if comparator returns nil."
@@ -11,7 +16,7 @@
   (let [cmp (fn [i] (if (nil? (comparator i))
                       (throw (ex-info "Custom set comparator returned nil" {:item i}))
                       (comparator i)))]
-    (reduce conj (CustomComparatorSet. nil {} cmp) keys)))
+    (apply custom-comparator-set cmp keys)))
 
 #?(:clj (defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
           (let [items (string/join " " (map pr-str (seq v)))]
