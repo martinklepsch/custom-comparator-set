@@ -3,7 +3,8 @@
             ;; [clojure.test.check :as tc]
             ;; [clojure.test.check.generators :as gen]
             ;; [clojure.test.check.properties :as prop]
-            [clojure.test :as t :refer [deftest]]))
+            #?(:clj [clojure.test :as t :refer [deftest]]
+               :cljs [cljs.test :as t :refer-macros [deftest]])))
 
 (deftest equality
   (t/is (= (ccset/set-by :k {:k "a"})

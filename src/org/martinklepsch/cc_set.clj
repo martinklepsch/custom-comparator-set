@@ -45,4 +45,4 @@
 
   (set-by :thing {:thing "a"} {:thing "x"} {:thing "b"})
 
-)
+  )
