@@ -1,6 +1,6 @@
 # Custom Comparator Sets in Clojure
 
-A Clojure/Script library for custom comparator sets.
+A custom Clojure/Script type for custom comparator sets.
 
 ### Rationale
 
@@ -28,7 +28,8 @@ users to manage data in a set-like datastructre while using a custom
 function as uniqueness comparator.
 
 ```clojure
-(import [org.martinklepsch.cc_set CustomComparatorSet])
+(import [org.martinklepsch.cc_set.impl CustomComparatorSet])            ; Clojure
+(require '[org.martinklepsch.cc-set.impl :refer [CustomComparatorSet]]) ; ClojureScript
 (def x (CustomComparatorSet. {} :id))
 (conj x {:id 1} {:id 2})
 ;; => #CustomComparatorSet{{:id 1} {:id 2}}
@@ -62,22 +63,17 @@ their unique property without traversing the full set.
 
 ### Building and Testing
 
-Build and install into local `~/.m2`
-
 ```sh
-boot build-jar
-```
-
-Run tests
-
-```sh
-boot test           # once
-boot watch test     # after changes
+boot build-jar           # install to ~/.m2
+boot test-cljc           # run tests once
+boot watch test-cljc     # run tests after changes
 ```
 
 ### Contributing
 
 Feedback and PRs welcome, especially generative testing seems like a good fit.
+
+--
 
 ### License
 
