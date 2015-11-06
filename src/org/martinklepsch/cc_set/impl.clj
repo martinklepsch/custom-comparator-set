@@ -14,7 +14,7 @@
 
   clojure.lang.IPersistentSet
   (disjoin [this v] (CustomComparatorSet. (dissoc data (comparator v)) comparator))
-  (contains [this v] (boolean ((-> data keys set) (comparator v))))
+  (contains [this v] (boolean (contains? data (comparator v))))
   (get [this k] (get data k))
 
   Object
