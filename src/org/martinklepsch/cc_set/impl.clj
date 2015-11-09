@@ -17,8 +17,32 @@
   (contains [this v] (boolean (contains? data (comparator v))))
   (get [this k] (get data k))
 
+  java.util.Collection
+  (size [this] (count data))
+
+  clojure.lang.IHashEq
+  (hasheq [this] (hash-unordered-coll (-> data vals set)))
+
+  Iterable
+  (iterator [this]
+    (clojure.lang.SeqIterator. (seq this)))
+
   Object
-  (toString [this] (pr-str (seq data))))
+  (equals [this that]
+    (cond
+      (identical? this that)    true
+      (= (seq this) (seq that)) true
+      :else false))
+  (hashCode [this] (.hashCode data))
+  (toString [this] (pr-str this)))
+
+(comment
+  (.equals (CustomComparatorSet. {"a" {:id "a"}} :id) #{})
+  ;; (.hashCode (CustomComparatorSet. {} :id))
+  (.hashCode #{})
+  (hash #{})
+  (hash (CustomComparatorSet. {} :id))
+  (hash {}))
 
 (defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
   (.write w "#CustomComparatorSet{")
