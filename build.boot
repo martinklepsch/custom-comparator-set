@@ -18,7 +18,14 @@
                     :description "A Clojure/Script library for custom comparator sets"
                     :url "https://github.com/martinklepsch/custom-comparator-set"
                     :scm {:url "https://github.com/martinklepsch/custom-comparator-set"}
-                    :license {"MPL v2" "https://www.mozilla.org/en-US/MPL/2.0/"}})
+                    :license {"MPL v2" "https://www.mozilla.org/en-US/MPL/2.0/"}}
+               push {:repo-map {:creds :gpg}
+                     :gpg-sign true})
+
+(deftask pushs
+  "Deploy snapshot version to Clojars."
+  [f file PATH str "The jar file to deploy."]
+  (push :file file :ensure-snapshot true))
 
 (deftask test-cljc []
   (let [tests #{'org.martinklepsch.cc-set-test}]
