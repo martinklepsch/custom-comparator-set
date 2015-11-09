@@ -2,6 +2,7 @@
           :dependencies '[[adzerk/boot-test "1.0.5-SNAPSHOT" :scope "test"]
                           [crisptrutski/boot-cljs-test "0.2.0-SNAPSHOT" :scope "test"]
                           [adzerk/bootlaces "0.1.13" :scope "test"]
+                          [collection-check "0.1.7-SNAPSHOT" :scope "test"]
                           ;; TODO: use [org.clojure/test.check "0.8.2" :scope "test"]
                           ])
 

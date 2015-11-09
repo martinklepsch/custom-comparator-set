@@ -3,6 +3,7 @@
             ;; [clojure.test.check :as tc]
             ;; [clojure.test.check.generators :as gen]
             ;; [clojure.test.check.properties :as prop]
+            #?(:clj [collection-check :as ccheck])
             #?(:clj [clojure.test :as t :refer [deftest]]
                :cljs [cljs.test :as t :refer-macros [deftest]])))
 
@@ -12,6 +13,14 @@
 (deftest equality
   (t/is (= (ccset/custom-comparator-set :k {:k "a"})
            (ccset/custom-comparator-set :k {:k "a"}))))
+
+(deftest hashing
+  (let [cset1 (ccset/custom-comparator-set :k {:k "a"})
+        cset2 (ccset/custom-comparator-set :k {:k "a"})
+        kmap (-> {} (assoc cset1 1) (assoc cset2 2))]
+    (t/is (= 2 (get kmap cset1)))
+    (t/is (= 2 (get kmap cset2)))
+    (t/is (= 1 (count kmap)))))
 
 (deftest counting
   (t/is (= 0 (count (ccset/custom-comparator-set :k))))
@@ -52,3 +61,9 @@
     (t/is (= {:k "b"}
              (-> (ccset/custom-comparator-set :k {:k "a"} {:k "b"})
                  (get "b"))))))
+
+#?(:clj
+   (deftest collection-check
+     (ccheck/assert-set-like
+      (ccset/custom-comparator-set identity)
+      clojure.test.check.generators/int)))
