@@ -1,6 +1,6 @@
 # Custom Comparator Sets in Clojure
 
-A custom Clojure/Script type for custom comparator sets.
+**Alpha** A custom Clojure/Script type for custom comparator sets.
 
 ### Rationale
 
