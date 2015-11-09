@@ -4,7 +4,10 @@
   #?(:clj (:import [org.martinklepsch.cc_set.impl CustomComparatorSet]))
   #?(:cljs (:require [org.martinklepsch.cc-set.impl :refer [CustomComparatorSet]])))
 
-(defn custom-comparator-set [comparator & keys]
+(defn custom-comparator-set
+  "Low level constructor hiding platform differences
+   between Clojure and ClojureScript"
+  [comparator & keys]
   (reduce conj #?(:clj (CustomComparatorSet. {} comparator)
                   :cljs (CustomComparatorSet. nil {} comparator))
           keys))
