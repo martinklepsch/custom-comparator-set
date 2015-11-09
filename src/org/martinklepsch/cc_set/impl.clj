@@ -19,3 +19,11 @@
 
   Object
   (toString [this] (pr-str (seq data))))
+
+(defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
+  (.write w "#CustomComparatorSet{")
+  (if (seq v)
+    (loop [[x & xs] (seq v)]
+      (print-method x w)
+      (when (seq xs) (.write w " ") (recur xs))))
+  (.write w "}"))

@@ -18,10 +18,6 @@
                       (comparator i)))]
     (apply custom-comparator-set cmp keys)))
 
-#?(:clj (defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
-          (let [items (string/join " " (map pr-str (seq v)))]
-            (.write w (str "#CustomComparatorSet{" items "}")))))
-
 (comment
   (def x (CustomComparatorSet. {} :id))
   (conj x {:id 1} {:id 2})

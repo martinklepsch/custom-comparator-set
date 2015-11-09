@@ -1,4 +1,5 @@
-(ns org.martinklepsch.cc-set.impl)
+(ns org.martinklepsch.cc-set.impl
+  (:require [clojure.string :as string]))
 
 (deftype CustomComparatorSet [meta data-map comparator]
   IWithMeta
@@ -34,10 +35,16 @@
   (-disjoin [_ v] (CustomComparatorSet. meta (dissoc data-map (comparator v)) comparator))
 
   ILookup
-  (-lookup [coll v]
-    (-lookup coll v nil))
-  (-lookup [coll v not-found]
-    (-lookup data-map v not-found))
+  (-lookup [coll v] (-lookup coll v nil))
+  (-lookup [coll v not-found] (-lookup data-map v not-found))
+
+  IHash
+  (-hash [coll] (hash-combine (hash comparator) (hash (seq coll))))
+
+  IPrintWithWriter
+  (-pr-writer [coll writer _]
+    (let [items (string/join " " (map pr-str (seq coll)))]
+      (-write writer (str "#CustomComparatorSet{" items "}"))))
 
   Object
   (toString [_] (pr-str (seq data-map))))
