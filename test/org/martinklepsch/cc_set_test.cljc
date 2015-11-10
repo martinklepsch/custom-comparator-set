@@ -10,9 +10,19 @@
 (deftest single-argument-arity
   (t/is (empty? (ccset/custom-comparator-set :k))))
 
+(deftest printing
+  (t/is (= (pr-str (ccset/custom-comparator-set :k))
+           "#CustomComparatorSet{}"))
+  (t/is (= (-> (ccset/custom-comparator-set :k) (conj {:k 1}) (conj {:k 2}) pr-str)
+           "#CustomComparatorSet{{:k 1} {:k 2}}")))
+
 (deftest equality
   (t/is (= (ccset/custom-comparator-set :k {:k "a"})
-           (ccset/custom-comparator-set :k {:k "a"}))))
+           (ccset/custom-comparator-set :k {:k "a"})))
+  (t/is (= (ccset/custom-comparator-set :k {:k "a"}) #{{:k "a"}}))
+  (t/is (= #{{:k "a"}} (ccset/custom-comparator-set :k {:k "a"})))
+  (t/is (not= (ccset/custom-comparator-set :k {:k "a"})
+              {"a" {:k "a"}})))
 
 (deftest hashing
   (let [cset1 (ccset/custom-comparator-set :k {:k "a"})
