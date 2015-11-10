@@ -1,6 +1,6 @@
 (ns org.martinklepsch.cc-set
   #?(:clj (:require [clojure.string :as string]
-                    [org.martinklepsch.cc_set.impl]))
+                    [org.martinklepsch.cc-set.impl]))
   #?(:clj (:import [org.martinklepsch.cc_set.impl CustomComparatorSet]))
   #?(:cljs (:require [org.martinklepsch.cc-set.impl :refer [CustomComparatorSet]])))
 
