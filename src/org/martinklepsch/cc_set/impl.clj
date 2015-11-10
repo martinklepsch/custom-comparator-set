@@ -17,32 +17,34 @@
   (contains [this v] (boolean (contains? data (comparator v))))
   (get [this k] (get data k))
 
-  java.util.Collection
-  (size [this] (count data))
-
   clojure.lang.IHashEq
   (hasheq [this] (hash-unordered-coll (-> data vals set)))
 
-  Iterable
+  clojure.lang.IFn
+  (invoke [this k] (get data k))
+
+  java.lang.Iterable
   (iterator [this]
     (clojure.lang.SeqIterator. (seq this)))
 
+  java.util.Collection
+  (size [this] (count data))
+
+  java.util.Set
+  (isEmpty [this] (zero? (count this)))
+  (toArray [this array]
+    (.toArray ^java.util.Collection (sequence (seq data)) array))
+  (toArray [this] (into-array (seq this)))
+  (containsAll [this coll]
+    (every? #(contains? this %) coll))
+
   Object
   (equals [this that]
-    (cond
-      (identical? this that)    true
-      (= (seq this) (seq that)) true
-      :else false))
-  (hashCode [this] (.hashCode data))
+    (cond (identical? this that)     true
+          (= (-> this seq set) that) true
+          :else false))
+  (hashCode [this] (reduce #(+ %1 (clojure.lang.Util/hash %2)) 0 (seq this)))
   (toString [this] (pr-str this)))
-
-(comment
-  (.equals (CustomComparatorSet. {"a" {:id "a"}} :id) #{})
-  ;; (.hashCode (CustomComparatorSet. {} :id))
-  (.hashCode #{})
-  (hash #{})
-  (hash (CustomComparatorSet. {} :id))
-  (hash {}))
 
 (defmethod print-method CustomComparatorSet [v ^java.io.Writer w]
   (.write w "#CustomComparatorSet{")
