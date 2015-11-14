@@ -27,8 +27,12 @@
   [f file PATH str "The jar file to deploy."]
   (push :file file :ensure-snapshot true))
 
+(deftask testing []
+  (merge-env! :source-paths #{"test"})
+  (let [nss #{'org.martinklepsch.cc-set-test}]
+    (task-options! test      {:namespaces nss}
+                   test-cljs {:namespaces nss}))
+  identity)
+
 (deftask test-cljc []
-  (let [tests #{'org.martinklepsch.cc-set-test}]
-    (merge-env! :source-paths #{"test"})
-    (comp (test-cljs) ; https://github.com/crisptrutski/boot-cljs-test/issues/17
-          (test :namespaces tests))))
+  (comp (test-cljs) (test)))
