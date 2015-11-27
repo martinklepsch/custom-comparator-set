@@ -43,6 +43,11 @@
     (t/is (= (ccset/custom-comparator-set :k)
              (empty (ccset/custom-comparator-set :k {:k "a"}))))))
 
+(deftest cloning
+  (t/testing "clone ccset"
+    (t/is (= (ccset/custom-comparator-set :k {:k "a"})
+             (clone (ccset/custom-comparator-set :k {:k "a"}))))))
+
 (deftest adding-values
   (t/testing "conj value to empty ccset"
     (t/is (= (ccset/custom-comparator-set :k {:k "a"})

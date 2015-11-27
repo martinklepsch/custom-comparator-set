@@ -9,7 +9,7 @@
   (-meta [coll] meta)
 
   ICloneable
-  (-clone [_] (CustomComparatorSet. meta hash-map comparator))
+  (-clone [_] (CustomComparatorSet. meta data-map comparator))
 
   IIterable
   (-iterator [_] (HashSetIter. (-iterator data-map)))
