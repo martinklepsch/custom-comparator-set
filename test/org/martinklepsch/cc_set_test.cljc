@@ -21,6 +21,8 @@
            (ccset/custom-comparator-set :k {:k "a"})))
   (t/is (= (ccset/custom-comparator-set :k {:k "a"}) #{{:k "a"}}))
   (t/is (= #{{:k "a"}} (ccset/custom-comparator-set :k {:k "a"})))
+  (t/is (not= (ccset/custom-comparator-set :k) []))
+  (t/is (= (ccset/custom-comparator-set :k) #{}))
   (t/is (not= (ccset/custom-comparator-set :k {:k "a"})
               {"a" {:k "a"}})))
 

@@ -6,7 +6,7 @@
                    this
                    (CustomComparatorSet. (assoc data (comparator v) v) comparator)))
   (empty [this] (CustomComparatorSet. {} comparator))
-  (equiv [this o] (= (set (seq this)) (set (seq o))))
+  (equiv [this o] (= (set (seq this)) o))
   (seq [this] (vals data))
 
   clojure.lang.Counted

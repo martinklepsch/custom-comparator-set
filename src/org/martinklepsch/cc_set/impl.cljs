@@ -23,7 +23,7 @@
   (-empty [coll] (CustomComparatorSet. meta {} comparator))
 
   IEquiv
-  (-equiv [coll o] (= (set (seq coll)) (set (seq o))))
+  (-equiv [coll o] (= (set (seq coll)) o))
 
   ISeqable
   (-seq [_] (vals data-map))
