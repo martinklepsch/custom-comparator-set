@@ -82,9 +82,9 @@ their unique property without traversing the full set.
 ### Building and Testing
 
 ```sh
-boot build-jar           # install to ~/.m2
-boot test-cljc           # run tests once
-boot watch test-cljc     # run tests after changes
+boot build-jar                   # install to ~/.m2
+boot testing test-cljc           # run tests once
+boot testing watch test-cljc     # run tests after changes
 ```
 
 ### Contributing
