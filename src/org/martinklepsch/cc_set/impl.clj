@@ -2,9 +2,7 @@
 
 (deftype CustomComparatorSet [data comparator]
   clojure.lang.IPersistentCollection
-  (cons [this v] (if (contains? this v)
-                   this
-                   (CustomComparatorSet. (assoc data (comparator v) v) comparator)))
+  (cons [this v] (CustomComparatorSet. (assoc data (comparator v) v) comparator))
   (empty [this] (CustomComparatorSet. {} comparator))
   (equiv [this o] (= (set (seq this)) o))
   (seq [this] (vals data))
@@ -15,13 +13,13 @@
   clojure.lang.IPersistentSet
   (disjoin [this v] (CustomComparatorSet. (dissoc data (comparator v)) comparator))
   (contains [this v] (boolean (contains? data (comparator v))))
-  (get [this k] (get data k))
+  (get [this v] (get data (comparator v)))
 
   clojure.lang.IHashEq
   (hasheq [this] (hash-unordered-coll (-> data vals set)))
 
   clojure.lang.IFn
-  (invoke [this k] (get data k))
+  (invoke [this v] (get data (comparator v)))
 
   java.lang.Iterable
   (iterator [this]
