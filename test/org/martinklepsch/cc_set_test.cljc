@@ -74,24 +74,24 @@
              (disj (ccset/custom-comparator-set :k {:k "a"}) {:k "a"})))))
 
 (deftest getting-values
-  (t/testing "get key not in ccset"
+  (t/testing "get value not in ccset"
     (t/is (= nil (get (ccset/custom-comparator-set :k {:k "a"}) {:k "b"}))))
-  (t/testing "get key in ccset"
+  (t/testing "get value in ccset"
     (t/is (= {:k "b"}
              (-> (ccset/custom-comparator-set :k {:k "a"} {:k "b"})
                  (get {:k "b"}))))))
 
 (deftest invoke
-  (t/testing "get key not in ccset"
+  (t/testing "get value not in ccset"
     (t/is (= nil ((ccset/custom-comparator-set :k {:k "a"}) {:k "b"}))))
-  (t/testing "get key in ccset"
+  (t/testing "get value in ccset"
     (t/is (= {:k "b"}
              ((ccset/custom-comparator-set :k {:k "a"} {:k "b"}) {:k "b"})))))
 
 (deftest contains
-  (t/testing "key not in ccset"
+  (t/testing "value not in ccset"
     (t/is (= false (contains? (ccset/custom-comparator-set :k {:k "a"}) {:k "b"}))))
-  (t/testing "key in ccset"
+  (t/testing "value in ccset"
     (t/is (= true (contains? (ccset/custom-comparator-set :k {:k "a"}) {:k "a"})))))
 
 #?(:clj
