@@ -15,9 +15,7 @@
   (-iterator [_] (HashSetIter. (-iterator data-map)))
 
   ICollection
-  (-conj [coll v] (if (contains? coll v)
-                    coll
-                    (CustomComparatorSet. meta (assoc data-map (comparator v) v) comparator)))
+  (-conj [coll v] (CustomComparatorSet. meta (assoc data-map (comparator v) v) comparator))
 
   IEmptyableCollection
   (-empty [coll] (CustomComparatorSet. meta {} comparator))
@@ -36,7 +34,7 @@
 
   ILookup
   (-lookup [coll v] (-lookup coll v nil))
-  (-lookup [coll v not-found] (-lookup data-map v not-found))
+  (-lookup [coll v not-found] (-lookup data-map (comparator v) not-found))
 
   IHash
   (-hash [coll] (hash-combine (hash comparator) (hash (seq coll))))
@@ -47,4 +45,10 @@
       (-write writer (str "#CustomComparatorSet{" items "}"))))
 
   Object
-  (toString [_] (pr-str (seq data-map))))
+  (toString [_] (pr-str (seq data-map)))
+
+  IFn
+  (-invoke [coll v]
+    (-lookup coll v))
+  (-invoke [coll v not-found]
+    (-lookup coll v not-found)))

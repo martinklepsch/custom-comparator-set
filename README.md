@@ -75,16 +75,24 @@ ClojureScript
 
 #### Differences to regular sets
 
-Lookups via `(get ccset k)` look for entries where the comparator
-returned `k`.  This way you can still effectively look up entries by
-their unique property without traversing the full set.
+**get**
+
+_Regular set_: `(get regular-set v)` looks for entries where `v == entry`
+
+_Custom-comparator set_: `(get ccset v)` look for entries where `(comparator v) == (comparator entry)`
+
+**conj**
+
+_Regular set_: `(conj regular-set v)` will add the value only if the set does not already contain it, maintaining uniqueness by value equality
+
+_Custom-comparator set_: `(conj ccset v)` will behave like `assoc` with the key `(comparator v)` and the value `v`, maintaining uniqueness by comparator. This means that values will be updated if the comparator result is equal but the value is different
 
 ### Building and Testing
 
 ```sh
-boot build-jar           # install to ~/.m2
-boot test-cljc           # run tests once
-boot watch test-cljc     # run tests after changes
+boot build-jar                   # install to ~/.m2
+boot testing test-cljc           # run tests once
+boot testing watch test-cljc     # run tests after changes
 ```
 
 ### Contributing

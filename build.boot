@@ -1,8 +1,9 @@
 (set-env! :source-paths #{"src"}
-          :dependencies '[[adzerk/boot-test "1.0.5-SNAPSHOT" :scope "test"]
-                          [crisptrutski/boot-cljs-test "0.2.0-SNAPSHOT" :scope "test"]
+          :dependencies '[[adzerk/boot-test "1.1.1" :scope "test"]
+                          [org.clojure/clojurescript "1.7.228" :scope "test"]
+                          [crisptrutski/boot-cljs-test "0.2.1" :scope "test"]
                           [adzerk/bootlaces "0.1.13" :scope "test"]
-                          [collection-check "0.1.7-SNAPSHOT" :scope "test"]
+                          [collection-check "0.1.6" :scope "test"]
                           ;; TODO: use [org.clojure/test.check "0.8.2" :scope "test"]
                           ])
 
