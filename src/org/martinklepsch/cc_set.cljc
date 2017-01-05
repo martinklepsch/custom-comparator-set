@@ -8,8 +8,9 @@
   "Low level constructor hiding platform differences
    between Clojure and ClojureScript"
   [comparator & keys]
-  (reduce conj #?(:clj (CustomComparatorSet. {} comparator)
-                  :cljs (CustomComparatorSet. nil {} comparator))
+  (reduce conj
+          #?(:clj (CustomComparatorSet. {} comparator)
+             :cljs (CustomComparatorSet. nil {} comparator))
           keys))
 
 (defn set-by
