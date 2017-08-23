@@ -4,7 +4,7 @@
 
 [](dependency)
 ```clojure
-[org.martinklepsch/cc-set "0.1.1"] ;; latest release
+[org.martinklepsch/cc-set "0.1.2"] ;; latest release
 ```
 [](/dependency)
 
