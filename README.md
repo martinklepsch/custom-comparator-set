@@ -2,6 +2,12 @@
 
 **Alpha** A custom Clojure/Script type for custom comparator sets.
 
+[](dependency)
+```clojure
+[org.martinklepsch/cc-set "0.1.1"] ;; latest release
+```
+[](/dependency)
+
 ### Rationale
 
 When dealing with domain data in maps this data often has unique
