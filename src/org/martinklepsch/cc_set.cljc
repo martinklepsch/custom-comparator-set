@@ -7,7 +7,7 @@
 (defn custom-comparator-set
   "Low level constructor hiding platform differences
    between Clojure and ClojureScript"
-  [comparator & keys]
+  [comparator keys]
   (reduce conj
           #?(:clj (CustomComparatorSet. {} comparator)
              :cljs (CustomComparatorSet. nil {} comparator))
@@ -16,11 +16,11 @@
 (defn set-by
   "High level constructor for custom comparator sets.
    Throws if comparator returns nil."
-  [comparator & keys]
+  [comparator keys]
   (let [cmp (fn [i] (if (nil? (comparator i))
                       (throw (ex-info "Custom set comparator returned nil" {:item i}))
                       (comparator i)))]
-    (apply custom-comparator-set cmp keys)))
+    (custom-comparator-set cmp keys)))
 
 (comment
   (def x (CustomComparatorSet. {} :id))
