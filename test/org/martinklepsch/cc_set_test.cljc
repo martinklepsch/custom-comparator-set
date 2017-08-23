@@ -3,7 +3,7 @@
             ;; [clojure.test.check :as tc]
             ;; [clojure.test.check.generators :as gen]
             ;; [clojure.test.check.properties :as prop]
-            #?(:clj [collection-check :as ccheck])
+            [collection-check.core :as ccheck]
             #?(:clj [clojure.test :as t :refer [deftest]]
                :cljs [cljs.test :as t :refer-macros [deftest]])))
 
@@ -46,10 +46,10 @@
              (empty (ccset/custom-comparator-set :k {:k "a"}))))))
 
 #?(:cljs
-    (deftest cloning
-      (t/testing "clone ccset"
-        (t/is (= (ccset/custom-comparator-set :k {:k "a"})
-                 (clone (ccset/custom-comparator-set :k {:k "a"})))))))
+   (deftest cloning
+     (t/testing "clone ccset"
+       (t/is (= (ccset/custom-comparator-set :k {:k "a"})
+                (clone (ccset/custom-comparator-set :k {:k "a"})))))))
 
 (deftest adding-values
   (t/testing "conj value to empty ccset"
@@ -94,8 +94,7 @@
   (t/testing "value in ccset"
     (t/is (= true (contains? (ccset/custom-comparator-set :k {:k "a"}) {:k "a"})))))
 
-#?(:clj
-   (deftest collection-check
-     (ccheck/assert-set-like
-      (ccset/custom-comparator-set identity)
-      clojure.test.check.generators/int)))
+(deftest collection-check
+  (ccheck/assert-set-like
+   (ccset/custom-comparator-set identity)
+   clojure.test.check.generators/int))
