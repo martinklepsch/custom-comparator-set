@@ -37,7 +37,13 @@
   (-lookup [coll v not-found] (-lookup data-map (comparator v) not-found))
 
   IHash
-  (-hash [coll] (hash-combine (hash comparator) (hash (seq coll))))
+  (-hash [coll] (hash (set (seq coll))))
+
+  IFn
+  (-invoke [coll v]
+    (-lookup coll v))
+  (-invoke [coll v not-found]
+    (-lookup coll v not-found))
 
   IPrintWithWriter
   (-pr-writer [coll writer _]
@@ -45,10 +51,4 @@
       (-write writer (str "#CustomComparatorSet{" items "}"))))
 
   Object
-  (toString [_] (pr-str (seq data-map)))
-
-  IFn
-  (-invoke [coll v]
-    (-lookup coll v))
-  (-invoke [coll v not-found]
-    (-lookup coll v not-found)))
+  (toString [coll] (pr-str coll)))
