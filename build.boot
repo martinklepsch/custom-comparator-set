@@ -12,7 +12,7 @@
          '[crisptrutski.boot-cljs-test :refer [test-cljs]]
          '[adzerk.bootlaces :as b :refer [build-jar push-release push-snapshot]])
 
-(def +version+ "0.1.0")
+(def +version+ "0.1.1")
 (b/bootlaces! +version+)
 
 (task-options! pom {:project 'org.martinklepsch/cc-set
