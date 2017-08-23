@@ -4,7 +4,8 @@
                           [adzerk/bootlaces "0.1.13" :scope "test"]
                           [collection-check "0.1.7" :scope "test"]
                           [org.clojure/clojurescript "1.9.293" :scope "provided"]
-                          ;; [org.clojure/test.check "0.9.0" :scope "test"]
+                          [org.clojure/test.check "0.9.0" :scope "test"]
+                          [com.gfredericks/test.chuck "0.2.2"]
                           ])
 
 (require '[adzerk.boot-test :refer [test]]
